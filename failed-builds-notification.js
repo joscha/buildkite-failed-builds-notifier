@@ -1,6 +1,6 @@
-"use latest";
-import githubUrlFromGit from "github-url-from-git";
-import sendgrid from "sendgrid";
+'use latest';
+import githubUrlFromGit from 'github-url-from-git';
+import sendgrid from 'sendgrid';
 const helper = sendgrid.mail;
 
 /**
@@ -29,23 +29,23 @@ module.exports = (context, cb) => {
     }
 
     if (
-        !("x-buildkite-token" in context.headers) ||
-        context.headers["x-buildkite-token"] !== BUILDKITE_TOKEN
+        !('x-buildkite-token' in context.headers) ||
+        context.headers['x-buildkite-token'] !== BUILDKITE_TOKEN
     ) {
-        cb(new Error("Missing or incorrect Buildkite token"));
+        cb(new Error('Missing or incorrect Buildkite token'));
         return;
     }
     if (!context.body) {
-        cb(new Error("Wrong Content-Type?"));
+        cb(new Error('Wrong Content-Type?'));
         return;
     }
 
     const { event } = context.body;
     switch (event) {
-        case "ping":
-            cb(null, "pong");
+        case 'ping':
+            cb(null, 'pong');
             return;
-        case "build.finished":
+        case 'build.finished':
             // this is the only other one we want to handle
             break;
         default:
@@ -60,14 +60,14 @@ module.exports = (context, cb) => {
             number,
             message,
             commit: sha,
-            creator: { name, email }
+            creator: { name, email },
         },
         pipeline: {
             name: pipelineName,
             url: pipelineUrl,
             slug,
-            repository: repo
-        }
+            repository: repo,
+        },
     } = context.body;
 
     // we want to keep this data structure small,
@@ -80,17 +80,17 @@ module.exports = (context, cb) => {
         sha,
         message,
         number,
-        repo
+        repo,
     };
 
     switch (state) {
-        case "passed":
+        case 'passed':
             // remove any stored culprits for the current pipeline
             transformStorage(context, clearPipeline.bind(null, currentCulprit))
                 .then(() => cb())
                 .catch(cb);
             break;
-        case "failed":
+        case 'failed':
             // store culprits and send Email
             transformStorage(context, storeCulprit.bind(null, currentCulprit))
                 .then(data => {
@@ -149,7 +149,7 @@ function sendEmail(context, culprits, currentCulprit, buildUrl, pipelineName) {
                 6
             )}, ${githubUrl}, failing since #${number}]`;
         })
-        .join("\n");
+        .join('\n');
 
     const content = `Farewell ${name}!
 
@@ -174,16 +174,16 @@ function send(context, to, subject, content) {
     const { SENDGRID_API_KEY, SENDER_EMAIL_ADDRESS: email } = context.secrets;
 
     const mail = new helper.Mail(
-        { name: "Bilbo", email },
+        { name: 'Bilbo', email },
         subject,
         new helper.Email(to),
-        new helper.Content("text/plain", content)
+        new helper.Content('text/plain', content)
     );
     const sg = sendgrid(SENDGRID_API_KEY);
     const request = sg.emptyRequest({
-        method: "POST",
-        path: "/v3/mail/send",
-        body: mail.toJSON()
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: mail.toJSON(),
     });
     return sg.API(request);
 }

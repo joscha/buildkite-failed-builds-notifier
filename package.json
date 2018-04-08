@@ -15,12 +15,11 @@
     "prettier": "^1.11.1"
   },
   "scripts": {
-    "precommit": "lint-staged",
-    "pretty": "prettier --write --tab-width 4 \"*.js\""
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.js": [
-        "prettier --write --tab-width 4 \"*.js\"",
+        "prettier --write --tab-width 4 --single-quote --trailing-comma es5 \"*.js\"",
         "git add"
     ]
   }
