@@ -89,6 +89,7 @@ module.exports = (context, cb) => {
         sha,
         message,
         number,
+        repo,
     };
 
     switch (state) {
