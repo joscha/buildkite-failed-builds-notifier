@@ -1,5 +1,5 @@
 # buildkite-failed-builds-notifier
-A webhook that sends out an email to people that potentially have failed a build
+A [Buildkite](http://www.buildkite.com) webhook that sends out an email to people that potentially have failed a build
 
 ## Installation
 Via [wt-cli](https://github.com/auth0/wt-cli):
