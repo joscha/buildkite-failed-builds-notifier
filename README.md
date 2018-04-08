@@ -2,9 +2,18 @@
 A [Buildkite](http://www.buildkite.com) webhook that sends out an email to people that potentially have failed a build.
 
 It looks like this:
+
 <img width="738" alt="inbox" src="https://user-images.githubusercontent.com/188038/38464447-79bbcffc-3b51-11e8-91db-94c7bb0a348c.png">
 
 <img width="1013" alt="details" src="https://user-images.githubusercontent.com/188038/38464445-7063a2e0-3b51-11e8-92a4-90c1316f2afc.png">
+
+Failures stack:
+
+<img width="981" alt="stacked" src="https://user-images.githubusercontent.com/188038/38464517-54b8973e-3b52-11e8-9c01-0bb5bf55f47d.png">
+
+until the build passes, at which the culprits are reset.
+
+Caveat: Only the current person triggering the Buildkite pipeline will be notified, assuming all others have been notified in the builds before. This will not work for commits which use `[skip ci]` or `[ci skip]`.
 
 ## Installation
 Via [wt-cli](https://github.com/auth0/wt-cli):
