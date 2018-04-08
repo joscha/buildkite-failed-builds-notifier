@@ -144,10 +144,8 @@ function sendEmail(context, culprits, currentCulprit, buildUrl, pipelineName) {
     const list = culprits
         .map(({ repo, sha, message, name, number }) => {
             const githubUrl = `${githubUrlFromGit(repo)}/commit/${sha}`;
-            return `* ${message} [${name}, ${sha.substring(
-                0,
-                6
-            )}, ${githubUrl}, failing since #${number}]`;
+            const shortSha = sha.substring(0, 6);
+            return `* ${message} [${name}, ${shortSha}, ${githubUrl}, failing since #${number}]`;
         })
         .join('\n');
 
@@ -201,6 +199,10 @@ function transformStorage(ctx, transformFn) {
                 if (error) {
                     if (error.code === 409 && attempts--) {
                         // resolve conflict and re-attempt set
+                        // unsure whether error.conflict contains the whole data
+                        // object or just a fragment, the webtask docs don't give
+                        // a clear indication there.
+                        // TODO: potentially fix this after support q comes back
                         data = transformFn(error.conflict);
                         return ctx.storage.set(data, set_cb);
                     }
