@@ -106,7 +106,7 @@ module.exports = (context, cb) => {
                     const {
                         culprits
                     } = data.pipelines[fullSlug(currentCulprit)];
-                    return sendEmail(context, culprits, currentCulprit, buildNumber, pipelineName);
+                    return sendEmail(context, culprits, currentCulprit, buildUrl, pipelineName);
                 })
                 .then(() => cb())
                 .catch(cb);
