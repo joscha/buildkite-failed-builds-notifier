@@ -15,6 +15,8 @@ until the build passes, at which the culprits are reset.
 
 Caveat: Only the current person triggering the Buildkite pipeline will be notified, assuming all others have been notified in the builds before. This will not work for commits which use `[skip ci]` or `[ci skip]`.
 
+It uses the [Buildkite webhooks](https://buildkite.com/docs/webhooks/integrations) and [webtask.io](https://webtask.io/).
+
 ## Installation
 Via [wt-cli](https://github.com/auth0/wt-cli):
 
