@@ -102,10 +102,10 @@ module.exports = (context, cb) => {
             // store culprits and send Email
             transformStorage(context, storeCulprit.bind(currentCulprit))
                 .then((data) => {
+                    console.log(data);
                     const {
                         culprits
                     } = data.pipelines[fullSlug(currentCulprit)];
-                    console.log(data, data.pipelines[fullSlug(currentCulprit)]);
                     return sendEmail(context, culprits, currentCulprit, buildNumber, pipelineName);
                 })
                 .then(() => cb())
