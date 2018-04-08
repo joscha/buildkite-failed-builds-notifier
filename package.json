@@ -1,0 +1,12 @@
+{
+  "name": "buildkite-failed-builds-notifier",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git://github.com/joscha/buildkite-failed-builds-notifier.git",
+  "author": "Joscha Feth <joscha@feth.com>",
+  "license": "MIT",
+  "dependencies": {
+    "github-url-from-git": "^1.5.0",
+    "sendgrid": "^5.2.3"
+  }
+}
