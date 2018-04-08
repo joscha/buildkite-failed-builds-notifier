@@ -24,11 +24,7 @@ function fullSlug({
  * @param context {WebtaskContext}
  */
 module.exports = (context, cb) => {
-
-    const {
-        SENDGRID_API_KEY,
-        BUILDKITE_TOKEN,
-    } = context.secrets;
+    const { BUILDKITE_TOKEN } = context.secrets;
 
     if (!BUILDKITE_TOKEN) {
         cb(new Error(`BUILDKITE_TOKEN secret not set or empty`));
