@@ -94,13 +94,13 @@ module.exports = (context, cb) => {
     switch (state) {
         case 'passed':
             // remove any stored culprits for the current pipeline
-            transformStorage(context, clearPipeline.bind(currentCulprit))
+            transformStorage(context, clearPipeline.bind(null, currentCulprit))
                 .then(() => cb())
                 .catch(cb);
             break;
         case 'failed':
             // store culprits and send Email
-            transformStorage(context, storeCulprit.bind(currentCulprit))
+            transformStorage(context, storeCulprit.bind(null, currentCulprit))
                 .then((data) => {
                     console.log(data);
                     const {
