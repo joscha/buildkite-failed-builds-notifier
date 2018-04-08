@@ -8,5 +8,20 @@
   "dependencies": {
     "github-url-from-git": "^1.5.0",
     "sendgrid": "^5.2.3"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.11.1"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "pretty": "prettier --write --tab-width 4 \"*.js\""
+  },
+  "lint-staged": {
+    "*.js": [
+        "prettier --write --tab-width 4 \"*.js\"",
+        "git add"
+    ]
   }
 }
