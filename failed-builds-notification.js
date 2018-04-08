@@ -30,6 +30,11 @@ module.exports = (context, cb) => {
         BUILDKITE_TOKEN,
     } = context.secrets;
 
+    if (!BUILDKITE_TOKEN) {
+        cb(new Error(`BUILDKITE_TOKEN secret not set or empty`));
+        return;
+    }
+
     if (!('x-buildkite-token' in context.headers) || context.headers['x-buildkite-token'] !== BUILDKITE_TOKEN) {
         cb(new Error('Missing or incorrect Buildkite token'));
         return;
