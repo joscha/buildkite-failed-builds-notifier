@@ -139,7 +139,7 @@ function clearPipeline(culprit, data) {
 
 function sendEmail(context, culprits, currentCulprit, buildUrl, pipelineName) {
     const { slug, name, email, number } = currentCulprit;
-    const subject = `🧙 Elves and dragons! ${pipelineName} (${slug}) failed (#${number})`;
+    const subject = `🚨 Elves and dragons! ${pipelineName} (${slug}) failed (#${number})`;
 
     const list = culprits
         .map(({ repo, sha, message, name, number }) => {
