@@ -21,6 +21,7 @@ It uses the [Buildkite webhooks](https://buildkite.com/docs/webhooks/integration
 *  Only the current person triggering the Buildkite pipeline will be notified, assuming all others have been notified in the builds before. This will not work for commits which use `[skip ci]` or `[ci skip]`.
 * Pipelines are tracked with their organization, so you can use one webtask with multiple organizations, even if you have pipelines with the same name.
 * The commit shas, the commit message, the email and name of the triggering person and some other data is stored in the webtask storage. For what is stored, [see here](https://github.com/joscha/buildkite-failed-builds-notifier/blob/92d7b4f63a79c123127a61d64683df3ce74047cc/failed-builds-notification.js#L80-L89).
+* TODO: in case an older build on the same pipeline that is passed after failure (by reruns for example), it removes the recorded failed state currently. Ideally the state would be kept, from the failing build upwards.
 
 ## Installation
 Via [wt-cli](https://github.com/auth0/wt-cli):
