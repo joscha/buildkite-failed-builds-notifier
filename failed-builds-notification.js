@@ -149,9 +149,9 @@ function sendEmail(context, culprits, currentCulprit, buildUrl, pipelineName) {
         })
         .join('\n');
 
-    const content = `Farewell ${name}!
+    const content = `Greetings ${name}!
 
-What in the Shire is that?
+What in the Shire is this?
 
 I hope that you’ll not take it amiss, but it seems you may have broken
 ${pipelineName} (${slug})
