@@ -48,10 +48,8 @@ wt modules add mandrill-api@1.0.45
 
 ## Needed secrets:
 
-One of:
-
-* `SENDGRID_API_TOKEN`: Create a [new API token](https://app.sendgrid.com/settings/api_keys) and give it full access for `Mail Send`: <img width="500" alt="Mail Send" src="https://www.evernote.com/shard/s5/sh/18981443-3469-410b-8f42-a6d207876dc0/28370d37212e1024/res/daf7d7f8-a2b5-4f3d-be83-3cc6cb189e0a/skitch.png">
-* `MANDRILL_API_KEY`: Create a new [API key](https://www.mandrill.com/)
+* Either `SENDGRID_API_TOKEN`: Create a [new API token](https://app.sendgrid.com/settings/api_keys) and give it full access for `Mail Send`: <img width="500" alt="Mail Send" src="https://www.evernote.com/shard/s5/sh/18981443-3469-410b-8f42-a6d207876dc0/28370d37212e1024/res/daf7d7f8-a2b5-4f3d-be83-3cc6cb189e0a/skitch.png">
+* Or: `MANDRILL_API_KEY`: Create a new [API key](https://www.mandrill.com/)
 
 
 * `BUILDKITE_TOKEN`: from your Buildkite [webhook settings](https://buildkite.com/organizations/your-org/services/webhook/new): <img width="500" alt="Token" src="https://www.evernote.com/shard/s5/sh/90cdaa51-1228-4fde-9946-d8528d667068/f525470a8a87aa67/res/fabcaa5f-3130-4458-b93f-9621f2480e24/skitch.png">
