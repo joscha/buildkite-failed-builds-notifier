@@ -1,7 +1,7 @@
 'use latest';
 import githubUrlFromGit from 'github-url-from-git';
 import sendgrid from 'sendgrid';
-const helper = sendgrid.mail;
+import mandrill from 'mandrill-api/mandrill';
 
 /**
  * The org should really come as part of the webhook payload,
@@ -169,21 +169,56 @@ Bilbo
 }
 
 function send(context, to, subject, content) {
-    const { SENDGRID_API_KEY, SENDER_EMAIL_ADDRESS: email } = context.secrets;
+    const {
+        MANDRILL_API_KEY,
+        SENDGRID_API_KEY,
+        SENDER_EMAIL_ADDRESS: email,
+    } = context.secrets;
 
-    const mail = new helper.Mail(
-        { name: 'Bilbo', email },
-        subject,
-        new helper.Email(to),
-        new helper.Content('text/plain', content)
-    );
-    const sg = sendgrid(SENDGRID_API_KEY);
-    const request = sg.emptyRequest({
-        method: 'POST',
-        path: '/v3/mail/send',
-        body: mail.toJSON(),
-    });
-    return sg.API(request);
+    const name = 'Bilbo';
+
+    if (MANDRILL_API_KEY) {
+        const mandrillClient = new mandrill.Mandrill(MANDRILL_API_KEY);
+        const message = {
+            text: content,
+            subject,
+            from_email: email,
+            from_name: name,
+            to: [
+                {
+                    email: to,
+                    type: 'to',
+                },
+            ],
+            track_opens: false,
+            track_clicks: false,
+            auto_html: false,
+        };
+        return new Promise((resolve, reject) => {
+            mandrillClient.messages.send(
+                { message },
+                () => resolve(),
+                () => reject()
+            );
+        });
+    } else if (SENDGRID_API_KEY) {
+        const helper = sendgrid.mail;
+        const mail = new helper.Mail(
+            { name, email },
+            subject,
+            new helper.Email(to),
+            new helper.Content('text/plain', content)
+        );
+        const sg = sendgrid(SENDGRID_API_KEY);
+        const request = sg.emptyRequest({
+            method: 'POST',
+            path: '/v3/mail/send',
+            body: mail.toJSON(),
+        });
+        return sg.API(request);
+    } else {
+        throw new Error('No valid API keys for either Mandrill or Sendgrid');
+    }
 }
 
 function transformStorage(ctx, transformFn) {

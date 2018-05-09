@@ -30,33 +30,44 @@ Via [wt-cli](https://github.com/auth0/wt-cli):
 wt create https://raw.githubusercontent.com/joscha/buildkite-failed-builds-notifier/master/failed-builds-notification.js \
           --name bilbo \
           --secret SENDGRID_API_TOKEN=<SENDGRID_API_TOKEN> \
+          --secret MANDRILL_API_KEY=<MANDRILL_API_KEY> \
           --secret BUILDKITE_TOKEN=<BUILDKITE_TOKEN> \
           --secret SENDER_EMAIL_ADDRESS=me@domain.com \
           --dependency github-url-from-git@1.5.0 \
           --dependency sendgrid@5.2.3
 ```
 
+You need either `SENDGRID_API_TOKEN` or `MANDRILL_API_KEY`. If both given, Mandrill will be preferred.
 
 ## Needed modules
 ```sh
 wt modules add github-url-from-git@1.5.0
 wt modules add sendgrid@5.2.3
+wt modules add mandrill-api@1.0.45
 ```
 
 ## Needed secrets:
+
+One of:
+
 * `SENDGRID_API_TOKEN`: Create a [new API token](https://app.sendgrid.com/settings/api_keys) and give it full access for `Mail Send`: <img width="500" alt="Mail Send" src="https://www.evernote.com/shard/s5/sh/18981443-3469-410b-8f42-a6d207876dc0/28370d37212e1024/res/daf7d7f8-a2b5-4f3d-be83-3cc6cb189e0a/skitch.png">
+* `MANDRILL_API_KEY`: Create a new [API key](https://www.mandrill.com/)
+
+
 * `BUILDKITE_TOKEN`: from your Buildkite [webhook settings](https://buildkite.com/organizations/your-org/services/webhook/new): <img width="500" alt="Token" src="https://www.evernote.com/shard/s5/sh/90cdaa51-1228-4fde-9946-d8528d667068/f525470a8a87aa67/res/fabcaa5f-3130-4458-b93f-9621f2480e24/skitch.png">
-* `SENDER_EMAIL_ADDRESS`: The email address that is used by sendgrid to generate the build fail emails.
+* `SENDER_EMAIL_ADDRESS`: The email address that is used by the email provider to generate the build fail emails.
 
 
-## Sendgrid settings:
+## Email settings
 
-### Disable click tracking
+### Sendgrid
+
+#### Disable click tracking
 
 <img width="500" alt="Click tracking" src="https://www.evernote.com/shard/s5/sh/b9c38491-b076-4a19-8957-442d68ec5a7f/631fd8ed08c085ff/res/65be894a-7e1f-4f48-925a-8687e78b99fb/skitch.png">
 otherwise the URLs in the plain text email become really long.
 
-### Enable plain content
+#### Enable plain content
 
 <img width="500" alt="Plain Content" src="https://www.evernote.com/shard/s5/sh/3bc8c825-b307-41d8-8c98-ffe82a735b29/6d1a8794ea5158c5/res/c58ef61f-739a-4c96-92d5-5eaffd902eb4/skitch.png">
 otherwise the plain text will be automatically converted to HTML by sendgrid and the formatting will be off.

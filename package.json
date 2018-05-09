@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "github-url-from-git": "^1.5.0",
+    "mandrill-api": "^1.0.45",
     "sendgrid": "^5.2.3"
   },
   "devDependencies": {
@@ -19,8 +20,8 @@
   },
   "lint-staged": {
     "*.js": [
-        "prettier --write --tab-width 4 --single-quote --trailing-comma es5 \"*.js\"",
-        "git add"
+      "prettier --write --tab-width 4 --single-quote --trailing-comma es5 \"*.js\"",
+      "git add"
     ]
   }
 }
