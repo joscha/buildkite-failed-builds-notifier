@@ -77,3 +77,34 @@ otherwise the plain text will be automatically converted to HTML by sendgrid and
 ### Enable the `ping` and `build.finished` events:
 
 <img width="500" alt="Events" src="https://www.evernote.com/shard/s5/sh/1b02a9be-c6f2-42ab-9055-bc3d1a29e605/5881436703a458d2/res/800e9d0a-6599-4ba0-8195-4c3e9bff735a/skitch.png">
+
+
+## Test
+
+You can test the webtask with this snippet:
+```json
+{
+  "event": "build.finished",
+  "build": {
+    "web_url": "https://buildkite.com/some-org/some-pipeline/builds/1",
+    "number": 1,
+    "state": "failed",
+    "message": "Some build message",
+    "commit": "c0ffeec0ffeec0ffeec0ffeec0ffeec0ffeec0ff",
+    "creator": {
+      "name": "Mister Test",
+      "email": "your@email.com"
+    }
+  },
+  "pipeline": {
+    "name": "Some pipeline",
+    "url": "https://api.buildkite.com/v2/organizations/some-org/pipelines/some-pipeline",
+    "slug": "some-pipeline",
+    "repository": "git@github.com:some/repo.git"
+  }
+}
+```
+
+> Important: Be sure to replace `your@email.com` with your own email, to actually receive anything.
+
+Don't forget to send this as JSON (`Content-Type: application/json`) and also pass your Buildkite token via the `X-Buildkite-Token` header. You can replace `"state": "failed"` with `"state": "passed"` to simulate a passed build run.
