@@ -151,7 +151,7 @@ function sendEmail(context, culprits, currentCulprit, buildUrl, pipelineName) {
 
     const content = `Greetings ${name}!
 
-What in the Shire is this?
+<img src="https://i.imgur.com/HjtirHY.png" width="250px" alt="What in the shire is this?">
 
 I hope that you’ll not take it amiss, but it seems you may have broken
 ${pipelineName} (${slug})
